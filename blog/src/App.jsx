@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 
 function App() {
   const [title, setTitle] = useState(['도서 추천', '김포 맛집', '알고리즘']);
   const [cnt, setCnt] = useState(0);
+  const [modal, setModal] = useState(false);
 
   const click = () => {
     // 불변성 보장
@@ -20,7 +22,8 @@ function App() {
     setTitle(tmp2);
   }
   const modalUp = () => {
-    document.querySelector('.modal-container').classList.toggle('show');
+    // document.querySelector('.modal-container').classList.toggle('show');
+    setModal(true);
   };
 
   return (
@@ -49,16 +52,17 @@ function App() {
           <p>7월 14일 발행</p>
         </div>
         <button onClick={sorting}>정렬</button>
-        <Modal />
+        {modal ? <Modal modal={modal} setModal={setModal} /> : null}
         <button onClick={modalUp}>모달창 열기</button>
       </div>
     </>
   );
 }
 
-const Modal = () => {
+const Modal = ({modal, setModal}) => {
   const modalDown = () => {
-    document.querySelector('.modal-container').classList.toggle('show');
+    // document.querySelector('.modal-container').classList.toggle('show');
+    setModal(!modal);
   };
   return (
     <>
@@ -73,5 +77,8 @@ const Modal = () => {
     </>
   );
 };
-
+Modal.propTypes = {
+  setModal: PropTypes.func.isRequired,
+  modal: PropTypes.bool.isRequired,
+};
 export default App;
