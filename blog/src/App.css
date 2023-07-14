@@ -5,11 +5,41 @@ div {
     width: 100%;
     display: flex;
     color: white;
-    padding: 20px;
+    padding-inline: 20px;
   }
   .list {
     padding-left: 20px;
     text-align: left;
     border-bottom: 1px solid grey;
   }
+}
+.modal-container {
+  background-color: rgba(1, 1, 1, 0.5);
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline: auto;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
+  visibility: hidden;
+  opacity: 0;
+
+  .modal {
+    opacity: 1;
+    display: block;
+    width: 30rem;
+    padding: 20px;
+    background: #eee;
+    text-align: left;
+  }
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
 }

@@ -2,13 +2,13 @@ import {useState} from 'react';
 import './App.css';
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
-  const [title, setTitle] = useState(['남자 코트 추천', '김포 맛집', '알고리즘']);
+  const [title, setTitle] = useState(['도서 추천', '김포 맛집', '알고리즘']);
   const [cnt, setCnt] = useState(0);
+
   const click = () => {
     // 불변성 보장
     let tmp = [...title]; // 원본에 변형을 가하면 안됨
-    tmp[0] = '여자 코트 추천';
+    tmp[0] = '강의 추천';
     setTitle(tmp);
     setCnt((prev) => prev + 1);
     console.log(cnt);
@@ -19,6 +19,10 @@ function App() {
     console.log(tmp2);
     setTitle(tmp2);
   }
+  const modalUp = () => {
+    document.querySelector('.modal-container').classList.toggle('show');
+  };
+
   return (
     <>
       <div className='App'>
@@ -45,9 +49,29 @@ function App() {
           <p>7월 14일 발행</p>
         </div>
         <button onClick={sorting}>정렬</button>
+        <Modal />
+        <button onClick={modalUp}>모달창 열기</button>
       </div>
     </>
   );
 }
+
+const Modal = () => {
+  const modalDown = () => {
+    document.querySelector('.modal-container').classList.toggle('show');
+  };
+  return (
+    <>
+      <div className='modal-container'>
+        <div className='modal'>
+          <h3>제목</h3>
+          <p>날씨</p>
+          <p>상세내용</p>
+          <button onClick={modalDown}>X</button>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default App;
