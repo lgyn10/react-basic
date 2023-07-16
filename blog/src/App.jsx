@@ -10,14 +10,11 @@ function App() {
   const click = (i) => {
     // 불변성 보장
     let tmp = [...title]; // 원본에 변형을 가하면 안됨
-    tmp[0] = '강의 추천';
+    if (!i) tmp[0] = '강의 추천';
     setTitle(tmp);
     let cntTmp = [...cnt];
-    console.log(i);
     cntTmp[i] += 1;
     setCnt(cntTmp);
-
-    console.log(cntTmp);
   };
   // 가나다순 정렬
   function sorting() {
@@ -65,7 +62,7 @@ function App() {
 const Modal = ({modal, setModal}) => {
   const modalDown = () => {
     // document.querySelector('.modal-container').classList.toggle('show');
-    setModal(!modal);
+    setModal(!modal); // 애니메이션 주기 어려움 (react-transition-group)
   };
   return (
     <>
