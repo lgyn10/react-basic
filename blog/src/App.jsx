@@ -43,7 +43,8 @@ function App() {
             <div className='list' key={i}>
               <h3>
                 {v}
-                <span style={{cursor: 'pointer'}} onClick={click.bind(null, i)}>
+                {/* click.bind(null, i) */}
+                <span style={{cursor: 'pointer'}} onClick={() => click(i)}>
                   ♥️
                 </span>
                 {cnt[i]}
