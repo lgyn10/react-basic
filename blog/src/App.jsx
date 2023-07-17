@@ -8,6 +8,7 @@ function App() {
   const [cnt, setCnt] = useState([0, 0, 0]);
   const [index, setIndex] = useState(-1);
   const [modal, setModal] = useState(false);
+  const [tmpString, setTmpString] = useState('');
 
   const click = (i) => {
     // 불변성 보장
@@ -42,21 +43,56 @@ function App() {
             <div className='list' key={i}>
               <h3 onClick={() => modalUp(i)} style={{cursor: 'pointer'}}>
                 {v}
+                <span
+                  className='likeBtn'
+                  onClick={(e) => {
+                    e.stopPropagation(); // 이벤트 버블링 막기
+                    click(i);
+                  }}
+                >
+                  ♥️
+                </span>
+                {cnt[i]}
               </h3>
-              <span className='likeBtn' onClick={() => click(i)}>
-                ♥️
-              </span>
-              {cnt[i]}
               <p>7월 14일 발행</p>
             </div>
           );
         })}
-
         <button onClick={sorting}>정렬</button>
         {modal ? (
           <Modal index={index} cnt={cnt} title={title} setTitle={setTitle} modal={modal} setModal={setModal} />
         ) : null}
         <button onClick={modalUp}>모달창 열기</button>
+        {/* 신규 생성 */}
+        <div className='input'>
+          <input
+            type='text'
+            onChange={(e) => {
+              setTmpString(e.target.value);
+              console.log(tmpString);
+            }}
+            onKeyDown={(e) => {
+              if (window.event.keyCode == 13) {
+                let newTitle = [...title, tmpString];
+                setTitle(newTitle);
+                setCnt([...cnt, 0]);
+                setTmpString('');
+                e.target.value = '';
+              }
+            }}
+          />
+          <button
+            onClick={(e) => {
+              let newTitle = [...title, tmpString];
+              setTitle(newTitle);
+              setCnt([...cnt, 0]);
+              setTmpString('');
+              e.target.parentNode.querySelector('input').value = '';
+            }}
+          >
+            전송
+          </button>
+        </div>
       </div>
     </>
   );

@@ -47,3 +47,10 @@ div {
 .like {
   cursor: 'pointer';
 }
+.input {
+  margin-block: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
