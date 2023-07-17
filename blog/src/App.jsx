@@ -8,7 +8,7 @@ function App() {
   const [cnt, setCnt] = useState([0, 0, 0]);
   const [index, setIndex] = useState(-1);
   const [modal, setModal] = useState(false);
-  const [tmpString, setTmpString] = useState('');
+  const [tmpString, setTmpString] = useState(''); // 그냥 변수여도 됨
 
   const click = (i) => {
     // 불변성 보장
@@ -20,12 +20,12 @@ function App() {
     setCnt(cntTmp);
   };
   // 가나다순 정렬
-  function sorting() {
+  const sorting = () => {
     let tmp2 = [...title];
     tmp2.sort((p1, p2) => p1.localeCompare(p2));
     console.log(tmp2);
     setTitle(tmp2);
-  }
+  };
   const modalUp = (i) => {
     // document.querySelector('.modal-container').classList.toggle('show');
     setModal(true);
@@ -55,6 +55,19 @@ function App() {
                 {cnt[i]}
               </h3>
               <p>7월 14일 발행</p>
+              <button
+                className='delBtn'
+                onClick={() => {
+                  let tmpTitle = [...title].filter((_, index) => index != i);
+                  // tmpTitle.splice(i, 1);
+                  let tmpCnt = [...cnt].filter((_, index) => index != i);
+                  // tmpCnt.splice(i, 1);
+                  setTitle(tmpTitle);
+                  setCnt(tmpCnt);
+                }}
+              >
+                delete
+              </button>
             </div>
           );
         })}
@@ -77,6 +90,8 @@ function App() {
                 setTitle(newTitle);
                 setCnt([...cnt, 0]);
                 setTmpString('');
+                console.log(tmpString); // 전의 값이 출력되는 이유
+                // setter는 늦게 처리됨 (비동기 처리)
                 e.target.value = '';
               }
             }}
