@@ -8,7 +8,8 @@ div {
     padding-inline: 20px;
   }
   .list {
-    user-select: none; // 하이라이트 제어
+    user-select: none;
+    /* 하이라이트 제거 */
     padding-left: 20px;
     text-align: left;
     border-bottom: 1px solid grey;
@@ -42,4 +43,7 @@ div {
 .show {
   visibility: visible;
   opacity: 1;
+}
+.like {
+  cursor: 'pointer';
 }

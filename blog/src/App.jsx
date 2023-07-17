@@ -2,9 +2,11 @@ import {useState} from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
 
+// 부모 컴포넌트
 function App() {
   const [title, setTitle] = useState(['도서 추천', '김포 맛집', '알고리즘']);
   const [cnt, setCnt] = useState([0, 0, 0]);
+  const [index, setIndex] = useState(-1);
   const [modal, setModal] = useState(false);
 
   const click = (i) => {
@@ -23,52 +25,52 @@ function App() {
     console.log(tmp2);
     setTitle(tmp2);
   }
-  const modalUp = () => {
+  const modalUp = (i) => {
     // document.querySelector('.modal-container').classList.toggle('show');
     setModal(true);
+    setIndex(i);
   };
 
   return (
     <>
       <div className='App'>
         <div className='black-nav'>
-          {/* {color:color} -> 작동 안함  */}
           <h3>BLOG</h3>
         </div>
         {title.map((v, i) => {
           return (
             <div className='list' key={i}>
-              <h3>
+              <h3 onClick={() => modalUp(i)} style={{cursor: 'pointer'}}>
                 {v}
-                {/* click.bind(null, i) */}
-                <span style={{cursor: 'pointer'}} onClick={() => click(i)}>
-                  ♥️
-                </span>
-                {cnt[i]}
               </h3>
+              <span className='likeBtn' onClick={() => click(i)}>
+                ♥️
+              </span>
+              {cnt[i]}
               <p>7월 14일 발행</p>
             </div>
           );
         })}
 
         <button onClick={sorting}>정렬</button>
-        {modal ? <Modal modal={modal} setModal={setModal} /> : null}
+        {modal ? <Modal index={index} title={title} modal={modal} setModal={setModal} /> : null}
         <button onClick={modalUp}>모달창 열기</button>
       </div>
     </>
   );
 }
 
-const Modal = ({modal, setModal}) => {
+// 자식 컴포넌트
+const Modal = (props) => {
   const modalDown = () => {
     // document.querySelector('.modal-container').classList.toggle('show');
-    setModal(!modal); // 애니메이션 주기 어려움 (react-transition-group)
+    props.setModal(!props.modal); // 애니메이션 주기 어려움 (react-transition-group)
   };
   return (
     <>
       <div className='modal-container'>
         <div className='modal'>
-          <h3>제목</h3>
+          <h3>{props.title[props.index]}</h3>
           <p>날씨</p>
           <p>상세내용</p>
           <button onClick={modalDown}>X</button>
@@ -80,5 +82,7 @@ const Modal = ({modal, setModal}) => {
 Modal.propTypes = {
   setModal: PropTypes.func.isRequired,
   modal: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  title: PropTypes.array.isRequired,
 };
 export default App;
