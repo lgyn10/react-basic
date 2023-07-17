@@ -53,7 +53,9 @@ function App() {
         })}
 
         <button onClick={sorting}>정렬</button>
-        {modal ? <Modal index={index} title={title} modal={modal} setModal={setModal} /> : null}
+        {modal ? (
+          <Modal index={index} cnt={cnt} title={title} setTitle={setTitle} modal={modal} setModal={setModal} />
+        ) : null}
         <button onClick={modalUp}>모달창 열기</button>
       </div>
     </>
@@ -71,15 +73,27 @@ const Modal = (props) => {
       <div className='modal-container'>
         <div className='modal'>
           <h3>{props.title[props.index]}</h3>
-          <p>날씨</p>
+          <p>좋아요: {props.cnt[props.index]}</p>
           <p>상세내용</p>
+          <button
+            onClick={() => {
+              let tmp = [...props.title];
+              tmp[0] = '강의 추천';
+              props.setTitle(tmp);
+            }}
+          >
+            제목 변경
+          </button>
           <button onClick={modalDown}>X</button>
         </div>
       </div>
     </>
   );
 };
+// 타입 검사
 Modal.propTypes = {
+  setTitle: PropTypes.func.isRequired,
+  cnt: PropTypes.array.isRequired,
   setModal: PropTypes.func.isRequired,
   modal: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
