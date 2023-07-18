@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import {useParams} from 'react-router';
+import styled from 'styled-components';
 
 const Detail = (props) => {
   let {paramId} = useParams();
@@ -16,11 +17,22 @@ const Detail = (props) => {
           <h4 className='pt-5'>{product.title}</h4>
           <p>{product.content}</p>
           <p>{product.price}원</p>
-          <button className='btn btn-danger'>주문하기</button>
+          <StyledBtn color='lightgreen' className='btn'>
+            주문하기
+          </StyledBtn>
+          <StyledBtn color='lightblue' className='btn'>
+            주문하기
+          </StyledBtn>
+          <StyledBtn color='red' className='btn'>
+            주문하기
+          </StyledBtn>
         </div>
       </div>
     </div>
   );
 };
+const StyledBtn = styled.button`
+  background-color: ${(props) => props.color};
+`;
 
 export default Detail;
