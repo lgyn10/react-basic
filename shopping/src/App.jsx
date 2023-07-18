@@ -4,6 +4,7 @@ import {useState} from 'react';
 import * as data from './data/data'; // 확장자 생략 가능
 import MdProducts from './components/MdProducts';
 import {Outlet, Route, Routes, useNavigate} from 'react-router';
+import Detail from './components/Detail';
 
 function App() {
   const [products] = useState(data.default);
@@ -20,6 +21,7 @@ function App() {
               <Nav.Link onClick={() => navigate('/cart')}>Cart</Nav.Link>
               <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
               <Nav.Link onClick={() => navigate('/event')}>Evnet</Nav.Link>
+              <Nav.Link onClick={() => navigate('/detail')}>Detail</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -52,6 +54,8 @@ function App() {
             <Route path='one' element={<h4>첫 주문 시 5000원 할인</h4>} />
             <Route path='two' element={<h4>생일 기념 쿠폰</h4>} />
           </Route>
+          {/* <Route path='/detail' element={<Detail products={products} />} /> */}
+          <Route path='/detail/:paramId' element={<Detail products={products} />} />
           {/* 404 not found */}
           <Route path='*' element={<h1>404 NOT FOUND</h1>} />
         </Routes>

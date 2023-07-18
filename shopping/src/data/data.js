@@ -4,7 +4,7 @@ let serverData = [
     title: '초크',
     content: '간편 사용이 가능',
     price: 5400,
-    img: '/chalk.png',
+    img: 'chalk.png',
   },
   {
     id: 1,
@@ -14,7 +14,7 @@ let serverData = [
     img: 'shoes.png',
   },
   {
-    id: 0,
+    id: 2,
     title: '손목 스트랩',
     content: '손목을 보호해줌',
     price: 8600,
