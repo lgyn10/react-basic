@@ -1,21 +1,34 @@
-.main-bg {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main-bg-container {
   margin: 1rem;
   height: 300px;
-  background-image: url(/public/climbing-main.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  width: auto;
+}
+.main-bg {
+  background: url(/climbing-main.jpg) left / cover no-repeat;
+  width: 100%;
+  height: 100%;
 }
 .product-img {
-  max-width: 300px;
-  width: 30vw;
+  width: min(300px, 30vw);
   border: 1px solid lightgrey;
 }
 .prdt-container {
   margin-inline: auto;
-  width: 100%;
-  max-width: 1280px;
+  width: min(1280px, 100%);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+.md-box {
+  margin-inline: auto;
+  padding-left: 1rem;
+  width: min(1280px, 100%);
+}
+h4 {
+  text-align: center;
 }
