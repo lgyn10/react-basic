@@ -21,5 +21,7 @@ let serverData = [
     img: 'strap.jpg',
   },
 ];
+let ex = 0;
 
+export {ex};
 export default serverData;

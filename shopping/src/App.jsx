@@ -1,45 +1,50 @@
-import {Container, Image, Nav, Navbar} from 'react-bootstrap';
+import {Container, Nav, Navbar} from 'react-bootstrap';
 import './App.css';
 import {useState} from 'react';
 import * as data from './data/data'; // 확장자 생략 가능
+import MdProducts from './components/MdProducts';
+import {Route, Routes, useNavigate} from 'react-router';
 
 function App() {
-  const [products] = useState(data.serverData);
+  const [products] = useState(data.default);
   console.log(products);
-
+  let navigate = useNavigate();
   return (
     <>
       <div className='App'>
         <Navbar bg='dark' data-bs-theme='dark'>
           <Container>
-            <Navbar.Brand href='#home'>GYUN-MALL</Navbar.Brand>
+            <Navbar.Brand onClick={() => navigate('/')}>GYUN-MALL</Navbar.Brand>
             <Nav className='me-auto'>
-              <Nav.Link href='#home'>Home</Nav.Link>
-              <Nav.Link href='#features'>Products</Nav.Link>
-              <Nav.Link href='#pricing'>contact</Nav.Link>
+              <Nav.Link onClick={() => navigate('/home')}>Home</Nav.Link>
+              <Nav.Link onClick={() => navigate('/cart')}>cart</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
-        <div className='main-bg-container'>
-          <div className='main-bg'></div>
-        </div>
-        <div className='md-box'>
-          <h3>MD 추천</h3>
-        </div>
-        <div>
-          <div className='prdt-container'>
-            {products.map((v) => {
-              return (
-                <div key={v.id}>
-                  <Image className='product-img' src={v.img} rounded />
-                  <h4>{v.title}</h4>
-                  <p>{v.content}</p>
-                  <p>가격: {v.price}</p>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <>
+                <div className='main-bg-container'>
+                  <div className='main-bg'></div>
+                  <div className='md-box'>
+                    <h3>MD 추천</h3>
+                  </div>
+                  <div className='prdt-container'>
+                    {products.map((v) => {
+                      return <MdProducts key={v.id} product={v} />;
+                    })}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+              </>
+            }
+          />
+          <Route path='/home' element={<h3>home</h3>} />
+          <Route path='/cart' element={<div>cart</div>} />
+          {/* 404 not found */}
+          <Route path='*' element={<h1>404 NOT FOUND</h1>} />
+        </Routes>
       </div>
     </>
   );
