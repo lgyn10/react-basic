@@ -3,7 +3,7 @@ import './App.css';
 import {useState} from 'react';
 import * as data from './data/data'; // 확장자 생략 가능
 import MdProducts from './components/MdProducts';
-import {Route, Routes, useNavigate} from 'react-router';
+import {Outlet, Route, Routes, useNavigate} from 'react-router';
 
 function App() {
   const [products] = useState(data.default);
@@ -17,7 +17,9 @@ function App() {
             <Navbar.Brand onClick={() => navigate('/')}>GYUN-MALL</Navbar.Brand>
             <Nav className='me-auto'>
               <Nav.Link onClick={() => navigate('/home')}>Home</Nav.Link>
-              <Nav.Link onClick={() => navigate('/cart')}>cart</Nav.Link>
+              <Nav.Link onClick={() => navigate('/cart')}>Cart</Nav.Link>
+              <Nav.Link onClick={() => navigate('/about')}>About</Nav.Link>
+              <Nav.Link onClick={() => navigate('/event')}>Evnet</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
@@ -42,6 +44,14 @@ function App() {
           />
           <Route path='/home' element={<h3>home</h3>} />
           <Route path='/cart' element={<div>cart</div>} />
+          <Route path='/about' element={<About />}>
+            <Route path='member' element={<h4>member</h4>} />
+            <Route path='location' element={<h4>location</h4>} />
+          </Route>
+          <Route path='/event' element={<Event />}>
+            <Route path='one' element={<h4>첫 주문 시 5000원 할인</h4>} />
+            <Route path='two' element={<h4>생일 기념 쿠폰</h4>} />
+          </Route>
           {/* 404 not found */}
           <Route path='*' element={<h1>404 NOT FOUND</h1>} />
         </Routes>
@@ -49,5 +59,23 @@ function App() {
     </>
   );
 }
+
+const About = () => {
+  return (
+    <>
+      <h2>About Page</h2>
+      <Outlet></Outlet>
+    </>
+  );
+};
+
+const Event = () => {
+  return (
+    <>
+      <h2>오늘의 이벤트</h2>
+      <Outlet />
+    </>
+  );
+};
 
 export default App;
