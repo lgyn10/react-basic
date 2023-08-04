@@ -8,12 +8,12 @@ const MdProducts = (props) => {
   return (
     <div key={props.product.id}>
       <Image
-        style={{cursor: 'pointer'}}
+        style={{cursor: 'pointer', width: '100%'}}
         onClick={() => {
           navigate('/detail/' + props.product.id);
         }}
         className='product-img'
-        src={props.product.img}
+        src={props.product.img ? props.product.img : '/none.png'}
         rounded
       />
       <h4>{props.product.title}</h4>

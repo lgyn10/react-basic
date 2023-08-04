@@ -2,6 +2,7 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router';
 import styled from 'styled-components';
+import TabContainer from './TabContainer';
 
 const Detail = (props) => {
   const [cnt, setCnt] = useState(0);
@@ -21,7 +22,7 @@ const Detail = (props) => {
       {isShow ? <div className='alert alert-warning'>3초 이내에 구매 시 20% 할인!</div> : null}
       <div className='row'>
         <div className='col-md-6'>
-          <img src={'/' + product.img} width='100%' />
+          <img src={'/' + (product.img ? product.img : 'none.png')} width='100%' />
         </div>
         <div className='col-md-6'>
           <h4 className='pt-5'>{product.title}</h4>
@@ -41,6 +42,7 @@ const Detail = (props) => {
           </StyledBtn>
         </div>
       </div>
+      <TabContainer />
     </div>
   );
 };

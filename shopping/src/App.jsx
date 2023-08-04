@@ -5,9 +5,10 @@ import * as data from './data/data'; // 확장자 생략 가능
 import MdProducts from './components/MdProducts';
 import {Outlet, Route, Routes, useNavigate} from 'react-router';
 import Detail from './components/Detail';
+import axios from 'axios';
 
 function App() {
-  const [products] = useState(data.default);
+  const [products, setProducts] = useState(data.default);
   console.log(products);
   let navigate = useNavigate();
   return (
@@ -30,15 +31,37 @@ function App() {
             path='/'
             element={
               <>
-                <div className='main-bg-container'>
-                  <div className='main-bg'></div>
-                  <div className='md-box'>
-                    <h3>MD 추천</h3>
+                <div className='container'>
+                  <div className='main-bg-container'>
+                    <div className='main-bg'></div>
+                    <div className='md-box'>
+                      <h3>MD 추천</h3>
+                    </div>
+                    <div className='grid-container'>
+                      <div className='prdt-container'>
+                        {products.map((v) => {
+                          return <MdProducts key={v.id} product={v} />;
+                        })}
+                      </div>
+                    </div>
                   </div>
-                  <div className='prdt-container'>
-                    {products.map((v) => {
-                      return <MdProducts key={v.id} product={v} />;
-                    })}
+                  <div className='box-btn'>
+                    <button
+                      className='ajax-btn btn btn-primary'
+                      onClick={() => {
+                        axios
+                          .get(`https://codingapple1.github.io/shop/data2.json`)
+                          .then((res) => {
+                            console.log(res.data);
+                            setProducts([...products, ...res.data]); 
+                          })
+                          .catch((e) => {
+                            console.log(e.message);
+                          })
+                          .finally(() => console.log(products));
+                      }}>
+                      Ajax 요청 버튼
+                    </button>
                   </div>
                 </div>
               </>
@@ -72,7 +95,6 @@ const About = () => {
     </>
   );
 };
-
 const Event = () => {
   return (
     <>
