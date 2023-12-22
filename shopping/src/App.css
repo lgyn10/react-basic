@@ -65,3 +65,6 @@ p {
   width: auto;
   /* border: 1px blue solid; */
 }
+.navbar {
+  z-index: 999;
+}

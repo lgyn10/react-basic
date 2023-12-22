@@ -6,6 +6,7 @@ import MdProducts from './components/MdProducts';
 import {Outlet, Route, Routes, useNavigate} from 'react-router';
 import Detail from './components/Detail';
 import axios from 'axios';
+import Cart from './components/Cart';
 
 function App() {
   const [products, setProducts] = useState(data.default);
@@ -14,7 +15,7 @@ function App() {
   return (
     <>
       <div className='App'>
-        <Navbar bg='dark' data-bs-theme='dark'>
+        <Navbar className='navbar' bg='dark' data-bs-theme='dark'>
           <Container>
             <Navbar.Brand onClick={() => navigate('/')}>GYUN-MALL</Navbar.Brand>
             <Nav className='me-auto'>
@@ -53,7 +54,7 @@ function App() {
                           .get(`https://codingapple1.github.io/shop/data2.json`)
                           .then((res) => {
                             console.log(res.data);
-                            setProducts([...products, ...res.data]); 
+                            setProducts([...products, ...res.data]);
                           })
                           .catch((e) => {
                             console.log(e.message);
@@ -68,7 +69,7 @@ function App() {
             }
           />
           <Route path='/home' element={<h3>home</h3>} />
-          <Route path='/cart' element={<div>cart</div>} />
+
           <Route path='/about' element={<About />}>
             <Route path='member' element={<h4>member</h4>} />
             <Route path='location' element={<h4>location</h4>} />
@@ -81,6 +82,7 @@ function App() {
           <Route path='/detail/:paramId' element={<Detail products={products} />} />
           {/* 404 not found */}
           <Route path='*' element={<h1>404 NOT FOUND</h1>} />
+          <Route path='/cart' element={<Cart></Cart>} />
         </Routes>
       </div>
     </>
